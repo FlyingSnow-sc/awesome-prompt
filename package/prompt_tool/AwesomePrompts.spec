@@ -18,34 +18,16 @@ a = Analysis(
     noarchive=False,
 )
 
-# 添加 prompts 目录
+# 添加 prompts 目录 - 假设 prompts 目录已经准备好
 import os
-import shutil
-from pathlib import Path
-
-# 复制 prompts 到临时目录
-project_root = Path(__file__).parent
-temp_prompts = project_root / "prompts"
-if temp_prompts.exists():
-    shutil.rmtree(temp_prompts)
-temp_prompts.mkdir(exist_ok=True)
-
-for item in project_root.parent.iterdir():
-    if item.is_dir() and not item.name.startswith('.') and item.name not in ['prompt_tool', '.git']:
-        dest_dir = temp_prompts / item.name
-        if dest_dir.exists():
-            shutil.rmtree(dest_dir)
-        shutil.copytree(item, dest_dir)
-        print(f"Copied: {item.name}")
-
-# 添加数据文件
 datas = []
-for root, dirs, files in os.walk(temp_prompts):
-    for file in files:
-        src_path = os.path.join(root, file)
-        rel_path = os.path.relpath(src_path, project_root)
-        dest_dir = os.path.dirname(rel_path)
-        datas.append((src_path, dest_dir))
+prompts_dir = 'prompts'
+if os.path.exists(prompts_dir):
+    for root, dirs, files in os.walk(prompts_dir):
+        for file in files:
+            src_path = os.path.join(root, file)
+            dest_dir = os.path.relpath(root, '.')
+            datas.append((src_path, dest_dir))
 
 a.datas += datas
 

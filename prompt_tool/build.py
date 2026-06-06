@@ -38,15 +38,32 @@ def main():
     temp_prompts = project_dir / "prompts"
     temp_prompts.mkdir(exist_ok=True)
     
+    # 检查从哪里复制提示词
+    parent_dir = project_dir.parent
     prompt_count = 0
-    for item in project_dir.parent.iterdir():
-        if item.is_dir() and not item.name.startswith('.') and item.name not in ['prompt_tool', '.git']:
-            dest_dir = temp_prompts / item.name
-            shutil.copytree(item, dest_dir)
-            prompt_count += 1
-            print(f"   已复制: {item.name}")
     
-    print(f"   共复制 {prompt_count} 个模块")
+    # 检查是否是在项目包内部
+    if (parent_dir / "AI一键将长文转小红书多图").exists():
+        # 在完整项目包中，从上级目录复制
+        source_dir = parent_dir
+    elif (project_dir / "../AI一键将长文转小红书多图").exists():
+        # 开发环境
+        source_dir = project_dir.parent
+    else:
+        print("⚠️  未找到提示词目录，跳过复制")
+        source_dir = None
+    
+    if source_dir:
+        for item in source_dir.iterdir():
+            if item.is_dir() and not item.name.startswith('.') and item.name not in ['prompt_tool', '.git', 'package']:
+                dest_dir = temp_prompts / item.name
+                if dest_dir.exists():
+                    shutil.rmtree(dest_dir)
+                shutil.copytree(item, dest_dir)
+                prompt_count += 1
+                print(f"   已复制: {item.name}")
+        
+        print(f"   共复制 {prompt_count} 个模块")
     
     # 执行构建
     print("\n🔨 开始构建...")
