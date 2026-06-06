@@ -1,59 +1,60 @@
 # Awesome Prompts - 快速开始指南
 
-## 🎉 下载完成！
+## 🎉 最简单的方法：双击打包！
 
-您已成功下载 Awesome Prompts 完整项目包！
+### 🚀 只需要 3 步
 
-## 📦 包含内容
+1. **下载并解压** `AwesomePrompts_Complete_Package.zip`
+2. **双击** `一键打包.bat`
+3. **等待完成**，EXE 在 `prompt_tool/dist/` 目录
 
-- **27+ 个 AI 提示词模块（分类整理）
-- **Windows 桌面工具完整源代码
-- **一键打包脚本
+就这么简单！
 
-## 🚀 Windows 打包步骤（只需 3 步）
+---
 
-### 第一步：解压项目包
+## 📦 如果上面不行，手动操作
 
-将 `AwesomePrompts_Complete_Package.zip` 解压到任意位置
+### 前置条件
+- Windows 系统
+- Python 3.7+（从 python.org 下载，安装时勾选 "Add Python to PATH"）
 
-### 第二步：安装 Python（如果没有）
+### 步骤
 
-1. 访问 [python.org/downloads](https://www.python.org/downloads/)
-2. 下载 Python 3.7 或更高版本
-3. **重要**：安装时勾选 "Add Python to PATH"
+1. **打开命令提示符（CMD）或 PowerShell**
+2. **进入项目目录**
+   ```cmd
+   cd path\to\package\prompt_tool
+   ```
 
-### 第三步：打包成 EXE
+3. **安装依赖**
+   ```cmd
+   pip install -r requirements.txt
+   pip install pyinstaller
+   ```
 
-打开命令提示符（CMD）或 PowerShell，进入 `prompt_tool` 目录：
+4. **准备提示词文件**
+   - 在 `prompt_tool` 里创建 `prompts` 文件夹
+   - 把外面那 27 个模块文件夹都复制进去
 
-```cmd
-cd path\to\package\prompt_tool
-pip install -r requirements.txt
-pip install pyinstaller
-python build.py
-```
+5. **打包**
+   ```cmd
+   pyinstaller --onefile --windowed --add-data "prompts;prompts" main.py
+   ```
 
-完成！打包成功后，EXE 文件位于：
-`prompt_tool\dist\AwesomePrompts.exe`
+6. **完成！**
+   - 找到 `dist/AwesomePrompts.exe` 直接运行
 
-## 💡 直接运行方式
+---
 
-| 方式 | 说明 |
-|-----|------|
-| **开发调试** | 运行 `python main.py` |
-| **打包使用** | 运行 `python build.py` 生成 EXE |
-
-## 📖 详细文档
-
-- [PACKAGE_README.md](package/PACKAGE_README.md) - 完整打包说明
-- [CODE_WIKI.md](package/CODE_WIKI.md) - 项目整体架构
-- [prompt_tool/README.md](package/prompt_tool/README.md) - 开发文档
-
-## ✨ 工具功能
+## 💡 工具功能
 
 - 🎨 系统托盘后台运行
 - 📂 按分类浏览提示词
 - 🔍 实时搜索
 - 📋 一键复制到剪贴板
 
-祝您使用愉快！
+---
+
+## ❓ 遇到问题？
+
+查看 `TROUBLESHOOTING.md` 获取更多解决方案！
