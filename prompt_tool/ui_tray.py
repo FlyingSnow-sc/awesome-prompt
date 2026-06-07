@@ -1,29 +1,32 @@
 # -*- coding: utf-8 -*-
 """
-系统托盘模块
+System Tray Module
 """
 from PyQt5.QtWidgets import QSystemTrayIcon, QMenu, QAction
-from PyQt5.QtCore import QSize
-from PyQt5.QtGui import QIcon, QPainter, QColor, QFont
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QIcon, QPainter, QColor, QFont, QPixmap
 
 
 def create_tray_icon() -> QIcon:
-    """创建系统托盘图标"""
-    pixmap = QIcon.fromTheme("applications-system").pixmap(64, 64)
-    if not pixmap.isNull():
-        return QIcon(pixmap)
+    """Create system tray icon"""
+    try:
+        # Try to get a system icon first
+        icon = QIcon.fromTheme("applications-system")
+        if not icon.isNull():
+            return icon
+    except:
+        pass
     
-    # 如果没有系统图标，创建一个简单的图标
-    from PyQt5.QtGui import QPixmap
+    # Create a simple colored icon
     pixmap = QPixmap(64, 64)
-    pixmap.fill(QColor(66, 133, 244))  # 蓝色背景
+    pixmap.fill(QColor(66, 133, 244))  # Blue background
     
     painter = QPainter(pixmap)
     painter.setRenderHint(QPainter.Antialiasing)
     
-    # 绘制文字
+    # Draw simple text
     painter.setPen(QColor(255, 255, 255))
-    font = QFont("Arial", 32, QFont.Bold)
+    font = QFont("Arial", 24, QFont.Bold)
     painter.setFont(font)
     painter.drawText(pixmap.rect(), Qt.AlignCenter, "AI")
     
@@ -32,7 +35,7 @@ def create_tray_icon() -> QIcon:
 
 
 class SystemTray:
-    """系统托盘管理"""
+    """System Tray Manager"""
     
     def __init__(self, app, main_window):
         self.app = app
@@ -42,47 +45,47 @@ class SystemTray:
         self.init_tray()
     
     def init_tray(self):
-        """初始化系统托盘"""
-        # 设置图标
+        """Initialize system tray"""
+        # Set icon
         icon = create_tray_icon()
         self.tray_icon.setIcon(icon)
-        self.tray_icon.setToolTip("Awesome Prompts - 提示词工具箱")
+        self.tray_icon.setToolTip("Awesome Prompts")
         
-        # 创建菜单
+        # Create menu
         tray_menu = QMenu()
         
-        # 打开主窗口
-        open_action = QAction("📂 打开主窗口", tray_menu)
+        # Open main window
+        open_action = QAction("Open", tray_menu)
         open_action.triggered.connect(self.show_main_window)
         tray_menu.addAction(open_action)
         
         tray_menu.addSeparator()
         
-        # 退出
-        quit_action = QAction("❌ 退出", tray_menu)
+        # Quit
+        quit_action = QAction("Quit", tray_menu)
         quit_action.triggered.connect(self.quit_app)
         tray_menu.addAction(quit_action)
         
         self.tray_icon.setContextMenu(tray_menu)
         
-        # 双击托盘图标显示窗口
+        # Double click to show window
         self.tray_icon.activated.connect(self.on_tray_activated)
         
-        # 显示托盘图标
+        # Show tray icon
         self.tray_icon.show()
     
     def on_tray_activated(self, reason):
-        """托盘图标激活事件"""
+        """Tray icon activated event"""
         if reason == QSystemTrayIcon.DoubleClick:
             self.show_main_window()
     
     def show_main_window(self):
-        """显示主窗口"""
+        """Show main window"""
         self.main_window.show()
         self.main_window.activateWindow()
         self.main_window.raise_()
     
     def quit_app(self):
-        """退出应用"""
+        """Quit application"""
         self.tray_icon.hide()
         self.app.quit()
