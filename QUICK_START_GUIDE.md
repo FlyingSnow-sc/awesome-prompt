@@ -1,60 +1,63 @@
-# Awesome Prompts - 快速开始指南
+# Awesome Prompts - Quick Start Guide
 
-## 🎉 最简单的方法：双击打包！
+## 🚀 Easiest Way - Use Python Build Script (Recommended!)
 
-### 🚀 只需要 3 步
+### Just 3 Steps
 
-1. **下载并解压** `AwesomePrompts_Complete_Package.zip`
-2. **双击** `一键打包.bat`
-3. **等待完成**，EXE 在 `prompt_tool/dist/` 目录
+1. **Download and extract** `AwesomePrompts_Complete_Package.zip`
+2. **Double-click** or **run** `build.py` with Python
+3. **Wait**, EXE will be in `prompt_tool/dist/`
 
-就这么简单！
-
----
-
-## 📦 如果上面不行，手动操作
-
-### 前置条件
-- Windows 系统
-- Python 3.7+（从 python.org 下载，安装时勾选 "Add Python to PATH"）
-
-### 步骤
-
-1. **打开命令提示符（CMD）或 PowerShell**
-2. **进入项目目录**
-   ```cmd
-   cd path\to\package\prompt_tool
-   ```
-
-3. **安装依赖**
-   ```cmd
-   pip install -r requirements.txt
-   pip install pyinstaller
-   ```
-
-4. **准备提示词文件**
-   - 在 `prompt_tool` 里创建 `prompts` 文件夹
-   - 把外面那 27 个模块文件夹都复制进去
-
-5. **打包**
-   ```cmd
-   pyinstaller --onefile --windowed --add-data "prompts;prompts" main.py
-   ```
-
-6. **完成！**
-   - 找到 `dist/AwesomePrompts.exe` 直接运行
+### How to run build.py:
+   - Right-click `build.py` → Open with → Python
+   - OR open command line: `python build.py`
 
 ---
 
-## 💡 工具功能
+## Alternative: Use Batch File (English only)
 
-- 🎨 系统托盘后台运行
-- 📂 按分类浏览提示词
-- 🔍 实时搜索
-- 📋 一键复制到剪贴板
+If above doesn't work, try `build_exe.bat`
 
 ---
 
-## ❓ 遇到问题？
+## If Still Not Working? Do it manually:
 
-查看 `TROUBLESHOOTING.md` 获取更多解决方案！
+### Step 1: Install Python
+- Download Python 3.7+ from python.org/downloads
+- Check "Add Python to PATH" during install
+
+### Step 2: Open Command Prompt
+```cmd
+cd path\to\package\prompt_tool
+```
+
+### Step 3: Install Dependencies
+```cmd
+pip install -r requirements.txt
+pip install pyinstaller
+```
+
+### Step 4: Prepare Files
+- Create `prompts` folder inside `prompt_tool`
+- Copy ALL 27+ module folders into `prompts`
+
+### Step 5: Build EXE
+```cmd
+pyinstaller --onefile --windowed --add-data "prompts;prompts" main.py
+```
+
+### Step 6: Done!
+- Find `dist/AwesomePrompts.exe` and run it!
+
+---
+
+## Features
+- System tray background running
+- Browse prompts by category
+- Real-time search
+- One-click copy to clipboard
+
+---
+
+## Problems?
+Check `TROUBLESHOOTING.md` for help!
