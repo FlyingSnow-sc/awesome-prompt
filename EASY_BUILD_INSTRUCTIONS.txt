@@ -1,0 +1,49 @@
+
+==================================================================
+  AWESOME PROMPTS - EASY BUILD GUIDE
+==================================================================
+
+STEP 1: INSTALL PYTHON
+======================
+- Go to python.org/downloads
+- Download Python 3.7 or newer
+- IMPORTANT: Check "Add Python to PATH" during installation
+
+
+STEP 2: OPEN COMMAND PROMPT
+============================
+- Press Win+R, type "cmd", press Enter
+- Navigate to where you extracted the files:
+  cd C:\path\to\your\package\prompt_tool
+
+
+STEP 3: INSTALL WHAT WE NEED
+============================
+Run these commands one by one:
+
+  pip install PyQt5
+  pip install pyperclip
+  pip install pyinstaller
+
+
+STEP 4: PREPARE THE FILES
+==========================
+- In the "prompt_tool" folder, create a NEW folder named "prompts"
+- Copy ALL the other 27+ folders (like "AI内容检测Prompt", "赛博李继刚", etc.) INTO this new "prompts" folder
+
+
+STEP 5: BUILD THE EXE
+=====================
+Run this command:
+
+  pyinstaller --onefile --windowed --add-data "prompts;prompts" main.py
+
+
+STEP 6: DONE!
+=============
+- Find your EXE in: prompt_tool\dist\AwesomePrompts.exe
+- Double-click to run it!
+
+
+THAT'S IT!
+==================================================================
